@@ -11,7 +11,7 @@ def acesso():
     username = request.form['login']
     password = request.form['password']
     
-    if username == 'joao' and password == '123':
+    if username == 'gabriel@' and password == '123':
         return redirect('/servicos')
     else:
         print('Usuário não encontrado')
