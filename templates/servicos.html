@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="{{ url_for('static', filename='styles_services.css') }}">
+<title>Serviços de Programação Web e Recursos TI</title>
+
+</head>
+<body>
+<header>
+  <h1>Serviços de Programação Web & Recursos de TI</h1>
+  <p>Soluções completas para seu projeto e materiais para aprimorar seus conhecimentos em manutenção e TI.</p>
+</header>
+<main>
+  <section id="offers">
+    <h2>Ofertas Especiais</h2>
+    <div class="offers">
+      <article class="offer-card">
+        <h3>Site Responsivo Completo</h3>
+        <p>Criação de site moderno, responsivo e otimizado para SEO, perfeito para apresentar sua empresa na web.</p>
+        <div class="offer-price">R$ 1.200,00</div>
+      </article>
+      <article class="offer-card">
+        <h3>Loja Virtual (e-commerce)</h3>
+        <p>Desenvolvimento de loja online segura com sistema de pagamento integrado para impulsionar suas vendas.</p>
+        <div class="offer-price">R$ 3.500,00</div>
+      </article>
+      <article class="offer-card">
+        <h3>Manutenção e Atualização</h3>
+        <p>Serviço contínuo para manter seu site atualizado, seguro e com as últimas tecnologias do mercado.</p>
+        <div class="offer-price">Planos a partir de R$ 400,00/mês</div>
+      </article>
+    </div>
+  </section>
+  <section id="services">
+    <h2>Tipos de Serviços</h2>
+    <div class="services-list">
+      <div class="service-item">Desenvolvimento Frontend</div>
+      <div class="service-item">Desenvolvimento Backend</div>
+      <div class="service-item">Integração com APIs</div>
+      <div class="service-item">Consultoria em TI</div>
+      <div class="service-item">Otimização de Performance</div>
+      <div class="service-item">Treinamento Técnico</div>
+    </div>
+  </section>
+  <section id="pdfs">
+    <h2>Venda de PDFs - Conhecimentos de TI e Manutenção</h2>
+    <div class="pdfs-grid">
+      <article class="pdf-card">
+        <h3 class="pdf-title">Guia Prático de Manutenção de Computadores</h3>
+        <p class="pdf-description">Aprenda a diagnosticar e resolver problemas comuns de hardware e software em computadores.</p>
+        <div class="pdf-price">R$ 49,90</div>
+        <button class="buy-button" onclick="buyPDF('Guia Prático de Manutenção de Computadores', 49.9)">Comprar</button>
+      </article>
+      <article class="pdf-card">
+        <h3 class="pdf-title">Fundamentos de Redes e Segurança</h3>
+        <p class="pdf-description">Conteúdo essencial para entender redes de computadores, protocolos e segurança digital.</p>
+        <div class="pdf-price">R$ 59,90</div>
+        <button class="buy-button" onclick="buyPDF('Fundamentos de Redes e Segurança', 59.9)">Comprar</button>
+      </article>
+      <article class="pdf-card">
+        <h3 class="pdf-title">Automação de Tarefas com Scripts</h3>
+        <p class="pdf-description">Aprenda a criar scripts para automatizar processos comuns e aumentar a produtividade.</p>
+        <div class="pdf-price">R$ 39,90</div>
+        <button class="buy-button" onclick="buyPDF('Automação de Tarefas com Scripts', 39.9)">Comprar</button>
+      </article>
+    </div>
+  </section>
+</main>
+<footer>
+  &copy; 2024 Programação Web e TI. Todos os direitos reservados.
+</footer>
+<script>
+  function buyPDF(title, price) {
+    alert(`Obrigado por adquirir o '${title}' por R$ ${price.toFixed(2)}! Em breve, enviaremos o link para download.`);
+  }
+</script>
+</body>
+</html>
+

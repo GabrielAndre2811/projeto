@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Página Inicial de Tecnologia</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles_index.css') }}">
+</head>
+<body>
+  <header>
+    <a href="/login">
+      <button>Login</button>
+    </a>
+    
+    <a href="/cadastro">
+      <button>Cadastro</button>
+    </a>
+    
+    
+  </header>
+  <main>
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=400&q=80" alt="Computador moderno" />
+      <h3>Computador Moderno</h3>
+    </div>
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=400&q=80" alt="Circuitos eletrônicos" />
+      <h3>Circuitos Eletrônicos</h3>
+    </div>
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1518773553398-650c184e0bb3?auto=format&fit=crop&w=400&q=80" alt="Programação e códigos" />
+      <h3>Programação & Códigos</h3>
+    </div>
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1549924231-f129b911e442?auto=format&fit=crop&w=400&q=80" alt="Tecnologia de rede" />
+      <h3>Tecnologia de Rede</h3>
+    </div>
+  </main>
+  <footer>
+    &copy; 2024 Tecnologia & Inovação
+  </footer>
+</body>
+</html>
+

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Página de Login</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='styles_login.css') }}">
+
+</head>
+<body>
+<div class="container" id="login-container">
+  <h2>Login</h2>
+
+  <form action = "/acesso" id="login-form" method="POST">
+    <label for="login">Usuário</label>
+    <input type="text" id="login" name="login" placeholder="Digite seu usuário" required />
+
+    <label for="password">Senha</label>
+    <input type="password" id="password" name="password" placeholder="Digite sua senha" required />
+    
+    <button type="submit">Entrar</button>
+  </form>
+
+  <button class="link-button" id="forgot-password-btn">Recuperar senha</button>
+  <div class="message" id="login-message"></div>
+</div>
+
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal">
+    <button class="close-btn" id="close-modal" title="Fechar">&times;</button>
+    <h3>Recuperar senha</h3>
+    <p>Digite seu e-mail para receber o link de recuperação:</p>
+    <input type="email" id="recovery-email" placeholder="seu@email.com" required />
+    <button id="send-recovery-btn">Enviar</button>
+    <div class="message" id="recovery-message"></div>
+  </div>
+</div>
+</body>
+</html>
+
