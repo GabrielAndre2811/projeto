@@ -1,11 +1,446 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cadastro Completo - Marketplace</title>
+  <style>
+    /* Reset and base styles */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: #f5f7fa;
+      color: #333;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+
+    /* Top menu styles */
+    nav.top-menu {
+      width: 100%;
+      max-width: 700px;
+      display: flex;
+      justify-content: center;
+      background-color: #1a73e8;
+      border-radius: 12px;
+      padding: 12px 0;
+      margin-bottom: 30px;
+      box-shadow: 0 6px 18px rgba(26, 115, 232, 0.3);
+      user-select: none;
+    }
+    nav.top-menu a {
+      color: white;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1rem;
+      margin: 0 24px;
+      padding: 8px 16px;
+      border-radius: 40px;
+      transition: background-color 0.3s, color 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+    nav.top-menu a:hover,
+    nav.top-menu a:focus {
+      background-color: #155dbd;
+      outline: none;
+    }
+    /* Icons next to menu text */
+    nav.top-menu a svg {
+      width: 20px;
+      height: 20px;
+      fill: white;
+      flex-shrink: 0;
+    }
+
+    .container {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(26, 115, 232, 0.15);
+      max-width: 700px;
+      width: 100%;
+      padding: 30px 40px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #1a73e8;
+      margin-bottom: 30px;
+      font-weight: 700;
+      font-size: 2.5rem;
+      user-select: none;
+    }
+
+    form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px 30px;
+    }
+    form .full-width {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 600;
+      color: #1a73e8;
+      user-select: none;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="date"],
+    input[type="tel"],
+    input[type="file"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1.8px solid #c4cdd5;
+      border-radius: 8px;
+      font-size: 16px;
+      transition: border-color 0.3s ease;
+      font-family: inherit;
+      box-sizing: border-box;
+      color: #222;
+    }
+    input[type="file"] {
+      padding: 6px 10px;
+    }
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    input[type="password"]:focus,
+    input[type="date"]:focus,
+    input[type="tel"]:focus,
+    select:focus,
+    textarea:focus,
+    input[type="file"]:focus {
+      outline: none;
+      border-color: #1a73e8;
+      box-shadow: 0 0 8px #a9c6ff;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 80px;
+      font-family: inherit;
+    }
+
+    .phone-group {
+      display: flex;
+      gap: 12px;
+    }
+    .phone-group input {
+      flex: 1;
+    }
+
+    /* Image preview container */
+    .image-preview {
+      grid-column: 1 / -1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: -10px;
+      margin-bottom: 18px;
+    }
+    .image-preview img {
+      width: 140px;
+      height: 140px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 3px solid #1a73e8;
+      box-shadow: 0 4px 14px rgba(26, 115, 232, 0.3);
+      user-select: none;
+    }
+    .image-preview p {
+      margin: 6px 0 0 0;
+      color: #666;
+      font-size: 14px;
+      user-select: none;
+    }
+
+    /* Submit button */
+    button[type="submit"] {
+      grid-column: 1 / -1;
+      background: #1a73e8;
+      color: white;
+      font-weight: 700;
+      font-size: 22px;
+      border: none;
+      padding: 16px 0;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 10px 30px rgba(26, 115, 232, 0.45);
+      transition: background 0.3s ease;
+      user-select: none;
+    }
+    button[type="submit"]:hover {
+      background: #155dbd;
+    }
+
+    /* Responsive */
+    @media (max-width: 680px) {
+      form {
+        grid-template-columns: 1fr;
+      }
+      .image-preview {
+        margin-bottom: 25px;
+      }
+      .image-preview img {
+        width: 120px;
+        height: 120px;
+      }
+    }
+  </style>
 </head>
 <body>
-    
+  <nav class="top-menu" role="navigation" aria-label="Menu principal">
+    <a href="#" tabindex="0" aria-label="Página principal">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+      Home
+    </a>
+    <a href="#" tabindex="0" aria-label="Saiba mais sobre o marketplace">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M11 17h2v-6h-2v6zm0-8h2V7h-2v2z"/><path d="M12 2a10 10 0 100 20 10 10 0 000-20zM11 15h2v-6h-2v6z"/></svg>
+      Saiba Mais
+    </a>
+    <a href="#" tabindex="0" aria-label="Promoções disponíveis">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2a7 7 0 017 7c0 5-7 13-7 13S5 14 5 9a7 7 0 017-7zm0 9.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5z"/></svg>
+      Promoções
+    </a>
+  </nav>
+
+  <main class="container" role="main" aria-labelledby="page-title">
+    <h1 id="page-title">Cadastro Completo</h1>
+    <form id="registration-form" novalidate>
+      <label for="email">Email <span aria-hidden="true" style="color:#d93025;">*</span></label>
+      <input type="email" id="email" name="email" placeholder="seuemail@exemplo.com" required autocomplete="email" />
+
+      <label for="login">Login <span aria-hidden="true" style="color:#d93025;">*</span></label>
+      <input type="text" id="login" name="login" placeholder="Usuario123" required autocomplete="username" minlength="4" maxlength="20" pattern="^[a-zA-Z0-9_\-\.]{4,20}$" title="4-20 caracteres, letras, números, pontos, traços e underscores" />
+
+      <label for="senha">Senha <span aria-hidden="true" style="color:#d93025;">*</span></label>
+      <input type="password" id="senha" name="senha" placeholder="Informe sua senha" required minlength="8" autocomplete="new-password" aria-describedby="senhaHelp" />
+
+      <label for="confirmar-senha">Confirmar Senha <span aria-hidden="true" style="color:#d93025;">*</span></label>
+      <input type="password" id="confirmar-senha" name="confirmar-senha" placeholder="Repita a senha" required autocomplete="new-password" />
+
+      <label for="nome">Nome Completo <span aria-hidden="true" style="color:#d93025;">*</span></label>
+      <input type="text" id="nome" name="nome" placeholder="Seu nome completo" required autocomplete="name" minlength="3" />
+
+      <label for="data-nascimento">Data de Nascimento <span aria-hidden="true" style="color:#d93025;">*</span></label>
+      <input type="date" id="data-nascimento" name="data-nascimento" required max="" />
+
+      <label for="cpf">CPF <span aria-hidden="true" style="color:#d93025;">*</span></label>
+      <input type="text" id="cpf" name="cpf" placeholder="000.000.000-00" required pattern="^\d{3}\.\d{3}\.\d{3}\-\d{2}$" title="CPF no formato 000.000.000-00" maxlength="14" />
+
+      <label for="telefone">Telefone <span aria-hidden="true" style="color:#d93025;">*</span></label>
+      <input type="tel" id="telefone" name="telefone" placeholder="(XX) XXXXX-XXXX" required pattern="^\(?\d{2}\)?\s?\d{4,5}\-?\d{4}$" title="Telefone no formato (XX) XXXXX-XXXX" maxlength="15" autocomplete="tel" />
+
+      <label for="imagem-perfil" class="full-width">Imagem de Perfil</label>
+      <input type="file" id="imagem-perfil" name="imagem-perfil" accept="image/*" aria-describedby="imageHelp" class="full-width" />
+
+      <div class="image-preview" id="image-preview" aria-live="polite" aria-atomic="true" style="display:none;">
+        <img src="" alt="Pré-visualização da imagem do perfil" id="image-preview-img" />
+        <p id="image-preview-text"></p>
+      </div>
+
+      <label for="cep">CEP <span aria-hidden="true" style="color:#d93025;">*</span></label>
+      <input type="text" id="cep" name="cep" placeholder="00000-000" required pattern="^\d{5}-\d{3}$" maxlength="9" />
+
+      <label for="logradouro">Logradouro (Rua, Avenida, etc.) <span aria-hidden="true" style="color:#d93025;">*</span></label>
+      <input type="text" id="logradouro" name="logradouro" placeholder="Nome da rua, avenida..." required />
+
+      <label for="numero">Número <span aria-hidden="true" style="color:#d93025;">*</span></label>
+      <input type="text" id="numero" name="numero" placeholder="Número do imóvel" required pattern="^\d+[a-zA-Z]?$" title="Número e opcional letra como complemento" />
+
+      <label for="complemento">Complemento</label>
+      <input type="text" id="complemento" name="complemento" placeholder="Apto, bloco, andar, etc." />
+
+      <label for="bairro">Bairro <span aria-hidden="true" style="color:#d93025;">*</span></label>
+      <input type="text" id="bairro" name="bairro" placeholder="Bairro" required />
+
+      <label for="cidade">Cidade <span aria-hidden="true" style="color:#d93025;">*</span></label>
+      <input type="text" id="cidade" name="cidade" placeholder="Cidade" required />
+
+      <label for="estado">Estado <span aria-hidden="true" style="color:#d93025;">*</span></label>
+      <select id="estado" name="estado" required aria-required="true">
+        <option value="" disabled selected>Selecione o estado</option>
+        <option value="AC">Acre</option>
+        <option value="AL">Alagoas</option>
+        <option value="AP">Amapá</option>
+        <option value="AM">Amazonas</option>
+        <option value="BA">Bahia</option>
+        <option value="CE">Ceará</option>
+        <option value="DF">Distrito Federal</option>
+        <option value="ES">Espírito Santo</option>
+        <option value="GO">Goiás</option>
+        <option value="MA">Maranhão</option>
+        <option value="MT">Mato Grosso</option>
+        <option value="MS">Mato Grosso do Sul</option>
+        <option value="MG">Minas Gerais</option>
+        <option value="PA">Pará</option>
+        <option value="PB">Paraíba</option>
+        <option value="PR">Paraná</option>
+        <option value="PE">Pernambuco</option>
+        <option value="PI">Piauí</option>
+        <option value="RJ">Rio de Janeiro</option>
+        <option value="RN">Rio Grande do Norte</option>
+        <option value="RS">Rio Grande do Sul</option>
+        <option value="RO">Rondônia</option>
+        <option value="RR">Roraima</option>
+        <option value="SC">Santa Catarina</option>
+        <option value="SP">São Paulo</option>
+        <option value="SE">Sergipe</option>
+        <option value="TO">Tocantins</option>
+      </select>
+
+      <label for="observacoes" class="full-width">Observações</label>
+      <textarea id="observacoes" name="observacoes" placeholder="Alguma informação extra?"></textarea>
+
+      <button type="submit" aria-label="Enviar formulário de cadastro">Cadastrar</button>
+    </form>
+  </main>
+
+  <script>
+    // Date max for birthdate: today minus 18 years (user must be adult)
+    const dataNascimentoInput = document.getElementById('data-nascimento');
+    const today = new Date();
+    const year18Ago = today.getFullYear() - 18;
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+    dataNascimentoInput.max = `${year18Ago}-${month}-${day}`;
+
+    // CPF input mask (format 000.000.000-00)
+    const cpfInput = document.getElementById('cpf');
+    cpfInput.addEventListener('input', () => {
+      let v = cpfInput.value.replace(/\D/g, '');
+      v = v.substring(0, 11);
+      v = v.replace(/(\d{3})(\d)/, '$1.$2');
+      v = v.replace(/(\d{3})(\d)/, '$1.$2');
+      v = v.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+      cpfInput.value = v;
+    });
+
+    // Telefone input mask (format (XX) XXXXX-XXXX)
+    const telefoneInput = document.getElementById('telefone');
+    telefoneInput.addEventListener('input', () => {
+      let v = telefoneInput.value.replace(/\D/g, '');
+      if (v.length > 11) v = v.substring(0, 11);
+      v = v.replace(/^(\d{2})(\d)/g, '($1) $2');
+      if (v.length <= 14) { // For 10 digits format
+        v = v.replace(/(\d{4})(\d)/, '$1-$2');
+      } else { // For 11 digits format
+        v = v.replace(/(\d{5})(\d)/, '$1-$2');
+      }
+      telefoneInput.value = v;
+    });
+
+    // CEP input mask (00000-000)
+    const cepInput = document.getElementById('cep');
+    cepInput.addEventListener('input', () => {
+      let v = cepInput.value.replace(/\D/g, '');
+      if (v.length > 8) v = v.substring(0, 8);
+      v = v.replace(/(\d{5})(\d)/, '$1-$2');
+      cepInput.value = v;
+    });
+
+    // Image preview logic
+    const imagemPerfilInput = document.getElementById('imagem-perfil');
+    const imagePreviewDiv = document.getElementById('image-preview');
+    const imagePreviewImg = document.getElementById('image-preview-img');
+    const imagePreviewText = document.getElementById('image-preview-text');
+
+    imagemPerfilInput.addEventListener('change', () => {
+      const file = imagemPerfilInput.files[0];
+      if (file && file.type.startsWith('image/')) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          imagePreviewImg.src = e.target.result;
+          imagePreviewText.textContent = file.name;
+          imagePreviewDiv.style.display = 'flex';
+        };
+        reader.readAsDataURL(file);
+      } else {
+        imagePreviewImg.src = '';
+        imagePreviewText.textContent = '';
+        imagePreviewDiv.style.display = 'none';
+      }
+    });
+
+    // Form validation and submission
+    const form = document.getElementById('registration-form');
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      // Custom validation: Passwords match
+      const senha = form['senha'].value;
+      const confirmarSenha = form['confirmar-senha'].value;
+
+      if (senha !== confirmarSenha) {
+        alert('As senhas não coincidem. Por favor, verifique.');
+        form['confirmar-senha'].focus();
+        return;
+      }
+
+      // Additional validations (example: CPF valid)
+      if (!validarCPF(form['cpf'].value)) {
+        alert('CPF inválido. Por favor, insira um CPF válido.');
+        form['cpf'].focus();
+        return;
+      }
+
+      // If form is valid, simulate submission (you can add ajax or backend integration here)
+      alert('Cadastro realizado com sucesso!');
+
+      form.reset();
+      imagePreviewImg.src = '';
+      imagePreviewText.textContent = '';
+      imagePreviewDiv.style.display = 'none';
+    });
+
+    // CPF validation function (simple checking digits)
+    function validarCPF(cpf) {
+      cpf = cpf.replace(/[^\d]+/g,'');
+      if(cpf.length !== 11 ||
+        cpf === "00000000000" ||
+        cpf === "11111111111" ||
+        cpf === "22222222222" ||
+        cpf === "33333333333" ||
+        cpf === "44444444444" ||
+        cpf === "55555555555" ||
+        cpf === "66666666666" ||
+        cpf === "77777777777" ||
+        cpf === "88888888888" ||
+        cpf === "99999999999"){
+          return false;
+      }
+      let add = 0;
+      for (let i=0; i < 9; i ++) {
+          add += parseInt(cpf.charAt(i)) * (10 - i);
+      }
+      let rev = 11 - (add % 11);
+      if (rev === 10 || rev === 11) rev = 0;
+      if (rev !== parseInt(cpf.charAt(9))) return false;
+      add = 0;
+      for (let i = 0; i < 10; i ++) {
+          add += parseInt(cpf.charAt(i)) * (11 - i);
+      }
+      rev = 11 - (add % 11);
+      if (rev === 10 || rev === 11) rev = 0;
+      if (rev !== parseInt(cpf.charAt(10))) return false;
+      return true;
+    }
+  </script>
 </body>
 </html>
