@@ -17,7 +17,6 @@ def acesso():
         print('Usuário não encontrado')
         return "Usuário ou senha incorretos", 401
 
-
 @app.route('/login')
 def login():
     return render_template('login.html')
@@ -25,6 +24,10 @@ def login():
 @app.route('/servicos')
 def servicos():
     return render_template('servicos.html')
+
+@app.route('/cadastro')
+def cadastro():
+    return render_template('cadastro.html')
 
 
 if __name__ == '__main__':
