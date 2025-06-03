@@ -1,0 +1,280 @@
+/* Reset and base styles */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f5f7fa;
+      margin: 0;
+      padding: 0;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Top menu styles */
+    .top-menu {
+      display: flex;
+      align-items: center;
+      background-color: #1a73e8;
+      padding: 10px 20px;
+      color: white;
+      gap: 20px;
+      box-shadow: 0 4px 12px rgba(26, 115, 232, 0.3);
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+    .menu-items {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .menu-item {
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 12px;
+      user-select: none;
+      color: white;
+      transition: color 0.3s ease;
+      text-decoration: none;
+    }
+    .menu-item:hover, .menu-item:focus {
+      color: #a8cdfa;
+      outline: none;
+    }
+    .menu-item svg {
+      width: 24px;
+      height: 24px;
+      margin-bottom: 4px;
+      fill: currentColor;
+    }
+    /* User avatar */
+    .user-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 2px solid white;
+      object-fit: cover;
+    }
+
+    /* Search bar container */
+    .search-container {
+      flex: 1 1 300px;
+      max-width: 400px;
+      margin: 0 20px;
+      position: relative;
+      border-radius: 40px;
+      background: rgba(255 255 255 / 0.85);
+      display: flex;
+      align-items: center;
+      padding: 6px 16px;
+      box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
+      transition: background 0.3s ease;
+    }
+    .search-container:focus-within {
+      background: white;
+      box-shadow: 0 0 8px 2px #a8cdfa;
+    }
+    .search-container svg {
+      width: 20px;
+      height: 20px;
+      fill: #666;
+      margin-right: 8px;
+      flex-shrink: 0;
+    }
+    .search-container input[type="search"] {
+      border: none;
+      background: transparent;
+      width: 100%;
+      font-size: 16px;
+      color: #333;
+      outline: none;
+      padding: 6px 0;
+    }
+    .search-container input[type="search"]::placeholder {
+      color: #999;
+    }
+
+    /* Title below menu */
+    h1 {
+      text-align: center;
+      color: #1a73e8;
+      margin: 20px 0 30px 0;
+      font-weight: 700;
+      font-size: 2rem;
+    }
+
+    /* Container */
+    .cart-container {
+      max-width: 960px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(26, 115, 232, 0.15);
+      padding: 20px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* Table for the cart items */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    thead {
+      background: #1a73e8;
+      color: white;
+    }
+
+    th, td {
+      padding: 15px;
+      text-align: left;
+      border-bottom: 1px solid #e1e1e1;
+    }
+
+    tbody tr:hover {
+      background-color: #eaf3ff;
+    }
+
+    /* Product image */
+    .product-img {
+      width: 70px;
+      height: 70px;
+      object-fit: cover;
+      border-radius: 6px;
+    }
+
+    /* Quantity input */
+    input[type="number"] {
+      width: 60px;
+      padding: 5px 8px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      text-align: center;
+      font-size: 16px;
+    }
+    input[type="number"]:focus {
+      outline: none;
+      border-color: #1a73e8;
+      box-shadow: 0 0 6px #a9c6ff;
+    }
+
+    /* Remove item button */
+    .remove-btn {
+      background: transparent;
+      border: none;
+      color: #d93025;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 18px;
+      transition: color ease 0.2s;
+    }
+    .remove-btn:hover {
+      color: #a22018;
+    }
+
+    /* Summary section */
+    .summary {
+      margin-top: 20px;
+      text-align: right;
+      font-size: 18px;
+      font-weight: 600;
+      color: #1a73e8;
+    }
+
+    /* Bottom buttons container */
+    .bottom-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      padding: 20px 0 40px 0;
+      background: white;
+      box-shadow: 0 -4px 12px rgba(26, 115, 232, 0.1);
+      border-top: 1px solid #e1e1e1;
+      flex-wrap: wrap;
+    }
+
+    /* Buttons base style */
+    button {
+      border: none;
+      border-radius: 50px;
+      font-size: 22px;
+      font-weight: 700;
+      cursor: pointer;
+      padding: 15px 50px;
+      box-shadow: 0 8px 20px rgba(26, 115, 232, 0.4);
+      transition: background ease 0.3s;
+      color: white;
+      min-width: 180px;
+      flex-grow: 0;
+      user-select: none;
+    }
+    button:disabled {
+      background: #cccccc;
+      box-shadow: none;
+      cursor: default;
+      color: #666666;
+    }
+
+    /* Continue shopping button */
+    .continue-btn {
+      background: #777777;
+    }
+    .continue-btn:hover {
+      background: #575757;
+    }
+
+    /* Proceed button */
+    .proceed-btn {
+      background: #1a73e8;
+    }
+    .proceed-btn:hover:not(:disabled) {
+      background: #155dbd;
+    }
+
+    /* Responsive */
+    @media (max-width: 640px) {
+      .menu-items {
+        gap: 15px;
+      }
+      .menu-item svg {
+        width: 20px;
+        height: 20px;
+      }
+      h1 {
+        font-size: 1.7rem;
+        margin: 15px 10px 25px 10px;
+      }
+      button {
+        font-size: 18px;
+        padding: 14px 30px;
+        min-width: 140px;
+      }
+      .bottom-buttons {
+        gap: 15px;
+      }
+      th, td {
+        padding: 10px 8px;
+        font-size: 14px;
+      }
+      .product-img {
+        width: 50px;
+        height: 50px;
+      }
+      input[type="number"] {
+        width: 50px;
+        font-size: 14px;
+      }
+      .search-container {
+        flex: 1 1 100%;
+        max-width: none;
+        margin: 10px 0 0 0;
+      }
+    }

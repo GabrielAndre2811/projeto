@@ -1,406 +1,86 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Carrinho de Compras</title>
-  <style>
-    /* Reset and base styles */
-    *, *::before, *::after {
-      box-sizing: border-box;
-    }
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #f5f7fa;
-      margin: 0;
-      padding: 0;
-      color: #333;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
-
-    /* Top menu styles */
-    .top-menu {
-      display: flex;
-      align-items: center;
-      background-color: #1a73e8;
-      padding: 10px 20px;
-      color: white;
-      gap: 20px;
-      box-shadow: 0 4px 12px rgba(26, 115, 232, 0.3);
-      flex-wrap: wrap;
-      justify-content: space-between;
-    }
-    .menu-items {
-      display: flex;
-      gap: 20px;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-    .menu-item {
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      font-size: 12px;
-      user-select: none;
-      color: white;
-      transition: color 0.3s ease;
-      text-decoration: none;
-    }
-    .menu-item:hover, .menu-item:focus {
-      color: #a8cdfa;
-      outline: none;
-    }
-    .menu-item svg {
-      width: 24px;
-      height: 24px;
-      margin-bottom: 4px;
-      fill: currentColor;
-    }
-    /* User avatar */
-    .user-avatar {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      border: 2px solid white;
-      object-fit: cover;
-    }
-
-    /* Search bar container */
-    .search-container {
-      flex: 1 1 300px;
-      max-width: 400px;
-      margin: 0 20px;
-      position: relative;
-      border-radius: 40px;
-      background: rgba(255 255 255 / 0.85);
-      display: flex;
-      align-items: center;
-      padding: 6px 16px;
-      box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
-      transition: background 0.3s ease;
-    }
-    .search-container:focus-within {
-      background: white;
-      box-shadow: 0 0 8px 2px #a8cdfa;
-    }
-    .search-container svg {
-      width: 20px;
-      height: 20px;
-      fill: #666;
-      margin-right: 8px;
-      flex-shrink: 0;
-    }
-    .search-container input[type="search"] {
-      border: none;
-      background: transparent;
-      width: 100%;
-      font-size: 16px;
-      color: #333;
-      outline: none;
-      padding: 6px 0;
-    }
-    .search-container input[type="search"]::placeholder {
-      color: #999;
-    }
-
-    /* Title below menu */
-    h1 {
-      text-align: center;
-      color: #1a73e8;
-      margin: 20px 0 30px 0;
-      font-weight: 700;
-      font-size: 2rem;
-    }
-
-    /* Container */
-    .cart-container {
-      max-width: 960px;
-      margin: 0 auto;
-      background: white;
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(26, 115, 232, 0.15);
-      padding: 20px;
-      flex-grow: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-
-    /* Table for the cart items */
-    table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-
-    thead {
-      background: #1a73e8;
-      color: white;
-    }
-
-    th, td {
-      padding: 15px;
-      text-align: left;
-      border-bottom: 1px solid #e1e1e1;
-    }
-
-    tbody tr:hover {
-      background-color: #eaf3ff;
-    }
-
-    /* Product image */
-    .product-img {
-      width: 70px;
-      height: 70px;
-      object-fit: cover;
-      border-radius: 6px;
-    }
-
-    /* Quantity input */
-    input[type="number"] {
-      width: 60px;
-      padding: 5px 8px;
-      border-radius: 4px;
-      border: 1px solid #ccc;
-      text-align: center;
-      font-size: 16px;
-    }
-    input[type="number"]:focus {
-      outline: none;
-      border-color: #1a73e8;
-      box-shadow: 0 0 6px #a9c6ff;
-    }
-
-    /* Remove item button */
-    .remove-btn {
-      background: transparent;
-      border: none;
-      color: #d93025;
-      font-weight: bold;
-      cursor: pointer;
-      font-size: 18px;
-      transition: color ease 0.2s;
-    }
-    .remove-btn:hover {
-      color: #a22018;
-    }
-
-    /* Summary section */
-    .summary {
-      margin-top: 20px;
-      text-align: right;
-      font-size: 18px;
-      font-weight: 600;
-      color: #1a73e8;
-    }
-
-    /* Bottom buttons container */
-    .bottom-buttons {
-      display: flex;
-      justify-content: center;
-      gap: 25px;
-      padding: 20px 0 40px 0;
-      background: white;
-      box-shadow: 0 -4px 12px rgba(26, 115, 232, 0.1);
-      border-top: 1px solid #e1e1e1;
-      flex-wrap: wrap;
-    }
-
-    /* Buttons base style */
-    button {
-      border: none;
-      border-radius: 50px;
-      font-size: 22px;
-      font-weight: 700;
-      cursor: pointer;
-      padding: 15px 50px;
-      box-shadow: 0 8px 20px rgba(26, 115, 232, 0.4);
-      transition: background ease 0.3s;
-      color: white;
-      min-width: 180px;
-      flex-grow: 0;
-      user-select: none;
-    }
-    button:disabled {
-      background: #cccccc;
-      box-shadow: none;
-      cursor: default;
-      color: #666666;
-    }
-
-    /* Continue shopping button */
-    .continue-btn {
-      background: #777777;
-    }
-    .continue-btn:hover {
-      background: #575757;
-    }
-
-    /* Proceed button */
-    .proceed-btn {
-      background: #1a73e8;
-    }
-    .proceed-btn:hover:not(:disabled) {
-      background: #155dbd;
-    }
-
-    /* Responsive */
-    @media (max-width: 640px) {
-      .menu-items {
-        gap: 15px;
-      }
-      .menu-item svg {
-        width: 20px;
-        height: 20px;
-      }
-      h1 {
-        font-size: 1.7rem;
-        margin: 15px 10px 25px 10px;
-      }
-      button {
-        font-size: 18px;
-        padding: 14px 30px;
-        min-width: 140px;
-      }
-      .bottom-buttons {
-        gap: 15px;
-      }
-      th, td {
-        padding: 10px 8px;
-        font-size: 14px;
-      }
-      .product-img {
-        width: 50px;
-        height: 50px;
-      }
-      input[type="number"] {
-        width: 50px;
-        font-size: 14px;
-      }
-      .search-container {
-        flex: 1 1 100%;
-        max-width: none;
-        margin: 10px 0 0 0;
-      }
-    }
-  </style>
+  <title>Carrinho de Serviços</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles_carrinho.css') }}">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" />
 </head>
 <body>
-  <!-- Top menu with icons and search -->
   <nav class="top-menu" aria-label="Menu principal">
     <div class="menu-items">
-      <a href="#" class="menu-item" title="Página Inicial" tabindex="0" aria-label="Página Inicial">
-        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+      <a href="{{ url_for('index') }}" class="menu-item" title="Página Inicial">
+        <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
         Home
       </a>
-      <a href="#" class="menu-item" title="Promoções" tabindex="0" aria-label="Promoções">
-        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2a7 7 0 017 7c0 5-7 13-7 13S5 14 5 9a7 7 0 017-7zm0 9.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5z"/></svg>
-        Promoções
+      <a href="{{ url_for('servicos') }}" class="menu-item" title="Serviços">
+        <svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 017 7c0 5-7 13-7 13S5 14 5 9a7 7 0 017-7zm0 9.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5z"/></svg>
+        Serviços
       </a>
-      <button class="menu-item" id="user-data-menu-btn" aria-label="Dados do Usuário" tabindex="0" title="Dados do Usuário" type="button" style="background:none; border:none; color:inherit; font:inherit; cursor:pointer;">
-        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 12c2.21 0 4-1.79 4-4S14.21 4 12 4 8 5.79 8 8s1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+      <button class="menu-item" id="user-data-menu-btn" type="button" title="Dados do Usuário">
+        <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4S14.21 4 12 4 8 5.79 8 8s1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
         Dados
       </button>
     </div>
-    <!-- Search bar -->
-    <form class="search-container" role="search" aria-label="Busca de produtos" id="search-form" onsubmit="return false;">
-      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zM10 14a4 4 0 110-8 4 4 0 010 8z"/></svg>
-      <input type="search" id="search-input" name="search" placeholder="Pesquisar..." aria-label="Pesquisar produtos" />
+    <form class="search-container" role="search" id="search-form" onsubmit="return false;">
+      <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zM10 14a4 4 0 110-8 4 4 0 010 8z"/></svg>
+      <input type="search" id="search-input" placeholder="Pesquisar serviços..." />
     </form>
-    <!-- User avatar -->
     <div>
       <img src="https://i.pravatar.cc/40" alt="Foto do usuário" class="user-avatar" />
     </div>
   </nav>
 
-  <h1>Carrinho de Compras</h1>
+  <h1>Carrinho de Serviços</h1>
 
   <div class="cart-container" role="main">
     <table aria-label="Itens do carrinho">
       <thead>
         <tr>
-          <th>Produto</th>
+          <th>Serviço</th>
           <th>Quantidade</th>
-          <th>Preço Unitário</th>
+          <th>Preço</th>
           <th>Total</th>
           <th>Remover</th>
         </tr>
       </thead>
       <tbody id="cart-items">
-        <tr data-price="1299.00">
+        {% for item in carrinho %}
+        <tr data-price="{{ item.preco }}">
           <td>
-            <img class="product-img" src="https://via.placeholder.com/70x70?text=Produto+1" alt="Produto 1" />
-            Smartphone XYZ
+            <img class="product-img" src="{{ item.imagem or 'https://via.placeholder.com/70x70?text=Serviço' }}" alt="{{ item.nome }}">
+            {{ item.nome }}
           </td>
           <td>
-            <input type="number" min="1" value="1" aria-label="Quantidade do Smartphone XYZ" />
+            <input type="number" min="1" value="{{ item.quantidade }}" />
           </td>
-          <td>R$ 1.299,00</td>
-          <td class="item-total">R$ 1.299,00</td>
-          <td>
-            <button class="remove-btn" aria-label="Remover Smartphone XYZ">&times;</button>
-          </td>
+          <td>R$ {{ "%.2f"|format(item.preco) }}</td>
+          <td class="item-total">R$ {{ "%.2f"|format(item.preco * item.quantidade) }}</td>
+          <td><button class="remove-btn" aria-label="Remover {{ item.nome }}">&times;</button></td>
         </tr>
-        <tr data-price="399.90">
-          <td>
-            <img class="product-img" src="https://via.placeholder.com/70x70?text=Produto+2" alt="Produto 2" />
-            Fone de Ouvido Bluetooth
-          </td>
-          <td>
-            <input type="number" min="1" value="2" aria-label="Quantidade do Fone de Ouvido Bluetooth" />
-          </td>
-          <td>R$ 399,90</td>
-          <td class="item-total">R$ 799,80</td>
-          <td>
-            <button class="remove-btn" aria-label="Remover Fone de Ouvido Bluetooth">&times;</button>
-          </td>
-        </tr>
-        <tr data-price="249.50">
-          <td>
-            <img class="product-img" src="https://via.placeholder.com/70x70?text=Produto+3" alt="Produto 3" />
-            Smartwatch Series 5
-          </td>
-          <td>
-            <input type="number" min="1" value="1" aria-label="Quantidade do Smartwatch Series 5" />
-          </td>
-          <td>R$ 249,50</td>
-          <td class="item-total">R$ 249,50</td>
-          <td>
-            <button class="remove-btn" aria-label="Remover Smartwatch Series 5">&times;</button>
-          </td>
-        </tr>
+        {% endfor %}
       </tbody>
     </table>
 
-    <div class="summary" id="total-price" aria-live="polite" aria-atomic="true">Total: R$ 2.348,30</div>
+    <div class="summary" id="total-price">Total: R$ 0,00</div>
   </div>
 
-  <!-- Bottom buttons -->
   <div class="bottom-buttons">
-    <button class="continue-btn" id="continue-btn" type="button" aria-label="Continuar Comprando">
-      Continuar Comprando
-    </button>
-    <button class="proceed-btn" id="proceed-btn" type="button" aria-label="Prosseguir">
-      Prosseguir
-    </button>
+    <button class="continue-btn" type="button" onclick="window.location.href='{{ url_for('servicos') }}'">Continuar Comprando</button>
+    <button class="proceed-btn" id="proceed-btn" type="button">Prosseguir</button>
   </div>
 
-  <!-- Modal for user data -->
-  <div class="modal" id="user-data-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" tabindex="-1">
+  <div class="modal" id="user-data-modal">
     <div class="modal-content">
       <h2 id="modal-title">Dados do Usuário</h2>
       <form id="user-data-form" novalidate>
         <label for="name">Nome Completo</label>
-        <input type="text" id="name" name="name" autocomplete="name" required placeholder="Seu nome completo" />
-
+        <input type="text" id="name" required placeholder="Seu nome completo" />
         <label for="email">Email</label>
-        <input type="email" id="email" name="email" autocomplete="email" required placeholder="seuemail@exemplo.com" />
-
+        <input type="email" id="email" required placeholder="seuemail@exemplo.com" />
         <label for="phone">Telefone</label>
-        <input type="tel" id="phone" name="phone" autocomplete="tel" placeholder="(XX) XXXX-XXXX" pattern="^\\(?\\d{2}\\)?[\\s-]?\\d{4,5}-?\\d{4}$" />
-
+        <input type="tel" id="phone" placeholder="(XX) XXXX-XXXX" pattern="^\\(?\\d{2}\\)?[\\s-]?\\d{4,5}-?\\d{4}$" />
         <div class="modal-buttons">
           <button type="button" class="cancel-btn" id="cancel-modal-btn">Cancelar</button>
           <button type="submit" class="save-btn">Salvar</button>
@@ -409,128 +89,6 @@
     </div>
   </div>
 
-  <script>
-    const cartItems = document.getElementById('cart-items');
-    const totalPriceEl = document.getElementById('total-price');
-    const proceedBtn = document.getElementById('proceed-btn');
-    const continueBtn = document.getElementById('continue-btn');
-    const userDataBtn = document.getElementById('user-data-menu-btn');
-    const userDataModal = document.getElementById('user-data-modal');
-    const cancelModalBtn = document.getElementById('cancel-modal-btn');
-    const userDataForm = document.getElementById('user-data-form');
-    const searchForm = document.getElementById('search-form');
-    const searchInput = document.getElementById('search-input');
 
-    function formatPrice(value) {
-      return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-    }
-
-    function updateItemTotal(row) {
-      const price = parseFloat(row.dataset.price);
-      const quantityInput = row.querySelector('input[type="number"]');
-      const quantity = parseInt(quantityInput.value);
-      const itemTotal = price * quantity;
-      row.querySelector('.item-total').textContent = formatPrice(itemTotal);
-      return itemTotal;
-    }
-
-    function updateTotal() {
-      let total = 0;
-      const rows = cartItems.querySelectorAll('tr');
-      rows.forEach(row => {
-        total += updateItemTotal(row);
-      });
-      totalPriceEl.textContent = 'Total: ' + formatPrice(total);
-      const cartHasItems = rows.length > 0;
-      proceedBtn.disabled = !cartHasItems;
-      userDataBtn.disabled = !cartHasItems;
-    }
-
-    // Event delegation for quantity change
-    cartItems.addEventListener('input', (event) => {
-      if (event.target && event.target.type === 'number') {
-        let quantity = event.target.value;
-        if (quantity < 1) event.target.value = 1;
-        updateTotal();
-      }
-    });
-
-    // Event delegation for remove buttons
-    cartItems.addEventListener('click', (event) => {
-      if (event.target && event.target.classList.contains('remove-btn')) {
-        const row = event.target.closest('tr');
-        row.remove();
-        updateTotal();
-      }
-    });
-
-    // On proceed button click
-    proceedBtn.addEventListener('click', () => {
-      alert('Prosseguindo para o pagamento...');
-      // Future: Integrate real checkout navigation here
-    });
-
-    // On continue shopping button click
-    continueBtn.addEventListener('click', () => {
-      alert('Continuar comprando - você pode adicionar mais produtos!');
-      // Future: Navigate back to product page or homepage
-    });
-
-    // Show user data modal from menu icon
-    userDataBtn.addEventListener('click', () => {
-      userDataModal.classList.add('active');
-      document.getElementById('name').focus();
-    });
-
-    // Cancel modal
-    cancelModalBtn.addEventListener('click', () => {
-      userDataModal.classList.remove('active');
-      userDataForm.reset();
-    });
-
-    // Close modal if click outside content
-    userDataModal.addEventListener('click', (e) => {
-      if (e.target === userDataModal) {
-        userDataModal.classList.remove('active');
-        userDataForm.reset();
-      }
-    });
-
-    // Handle form submission
-    userDataForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-
-      if (!userDataForm.checkValidity()) {
-        userDataForm.reportValidity();
-        return;
-      }
-
-      const userData = {
-        name: userDataForm.name.value.trim(),
-        email: userDataForm.email.value.trim(),
-        phone: userDataForm.phone.value.trim()
-      };
-
-      userDataModal.classList.remove('active');
-      alert(
-        `Dados salvos com sucesso!\n\nNome: ${userData.name}\nEmail: ${userData.email}\nTelefone: ${userData.phone || '-'}`
-      );
-      userDataForm.reset();
-    });
-
-    // Handle search form submission
-    searchForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const query = searchInput.value.trim();
-      if(query) {
-        alert('Pesquisar por: ' + query);
-        // Integrate real search here
-      }
-    });
-
-    // Initial total calculation
-    updateTotal();
-  </script>
 </body>
 </html>
-

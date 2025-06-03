@@ -24,7 +24,8 @@
 
   <main class="container" role="main" aria-labelledby="page-title">
     <h1 id="page-title">Cadastro Completo</h1>
-    <form id="registration-form" novalidate>
+    <form id="registration-form", action="/add_cadastro", method="POST">
+      
       <label for="email">Email <span aria-hidden="true" style="color:#d93025;">*</span></label>
       <input type="email" id="email" name="email" placeholder="seuemail@exemplo.com" required autocomplete="email" />
 
@@ -48,64 +49,6 @@
 
       <label for="telefone">Telefone <span aria-hidden="true" style="color:#d93025;">*</span></label>
       <input type="tel" id="telefone" name="telefone" placeholder="(XX) XXXXX-XXXX" required pattern="^\(?\d{2}\)?\s?\d{4,5}\-?\d{4}$" title="Telefone no formato (XX) XXXXX-XXXX" maxlength="15" autocomplete="tel" />
-
-      <label for="imagem-perfil" class="full-width">Imagem de Perfil</label>
-      <input type="file" id="imagem-perfil" name="imagem-perfil" accept="image/*" aria-describedby="imageHelp" class="full-width" />
-
-      <div class="image-preview" id="image-preview" aria-live="polite" aria-atomic="true" style="display:none;">
-        <img src="" alt="Pré-visualização da imagem do perfil" id="image-preview-img" />
-        <p id="image-preview-text"></p>
-      </div>
-
-      <label for="cep">CEP <span aria-hidden="true" style="color:#d93025;">*</span></label>
-      <input type="text" id="cep" name="cep" placeholder="00000-000" required pattern="^\d{5}-\d{3}$" maxlength="9" />
-
-      <label for="logradouro">Logradouro (Rua, Avenida, etc.) <span aria-hidden="true" style="color:#d93025;">*</span></label>
-      <input type="text" id="logradouro" name="logradouro" placeholder="Nome da rua, avenida..." required />
-
-      <label for="numero">Número <span aria-hidden="true" style="color:#d93025;">*</span></label>
-      <input type="text" id="numero" name="numero" placeholder="Número do imóvel" required pattern="^\d+[a-zA-Z]?$" title="Número e opcional letra como complemento" />
-
-      <label for="complemento">Complemento</label>
-      <input type="text" id="complemento" name="complemento" placeholder="Apto, bloco, andar, etc." />
-
-      <label for="bairro">Bairro <span aria-hidden="true" style="color:#d93025;">*</span></label>
-      <input type="text" id="bairro" name="bairro" placeholder="Bairro" required />
-
-      <label for="cidade">Cidade <span aria-hidden="true" style="color:#d93025;">*</span></label>
-      <input type="text" id="cidade" name="cidade" placeholder="Cidade" required />
-
-      <label for="estado">Estado <span aria-hidden="true" style="color:#d93025;">*</span></label>
-      <select id="estado" name="estado" required aria-required="true">
-        <option value="" disabled selected>Selecione o estado</option>
-        <option value="AC">Acre</option>
-        <option value="AL">Alagoas</option>
-        <option value="AP">Amapá</option>
-        <option value="AM">Amazonas</option>
-        <option value="BA">Bahia</option>
-        <option value="CE">Ceará</option>
-        <option value="DF">Distrito Federal</option>
-        <option value="ES">Espírito Santo</option>
-        <option value="GO">Goiás</option>
-        <option value="MA">Maranhão</option>
-        <option value="MT">Mato Grosso</option>
-        <option value="MS">Mato Grosso do Sul</option>
-        <option value="MG">Minas Gerais</option>
-        <option value="PA">Pará</option>
-        <option value="PB">Paraíba</option>
-        <option value="PR">Paraná</option>
-        <option value="PE">Pernambuco</option>
-        <option value="PI">Piauí</option>
-        <option value="RJ">Rio de Janeiro</option>
-        <option value="RN">Rio Grande do Norte</option>
-        <option value="RS">Rio Grande do Sul</option>
-        <option value="RO">Rondônia</option>
-        <option value="RR">Roraima</option>
-        <option value="SC">Santa Catarina</option>
-        <option value="SP">São Paulo</option>
-        <option value="SE">Sergipe</option>
-        <option value="TO">Tocantins</option>
-      </select>
 
       <label for="observacoes" class="full-width">Observações</label>
       <textarea id="observacoes" name="observacoes" placeholder="Alguma informação extra?"></textarea>

@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="stylesheet" href="{{ url_for('static', filename='styles_services.css') }}">
-<title>Serviços de Programação Web e Recursos TI</title>
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles_services.css') }}">
+  <title>Serviços de Programação Web e Recursos TI</title>
 </head>
 <body>
 <header>
@@ -20,30 +19,38 @@
         <h3>Site Responsivo Completo</h3>
         <p>Criação de site moderno, responsivo e otimizado para SEO, perfeito para apresentar sua empresa na web.</p>
         <div class="offer-price">R$ 1.200,00</div>
+        <form action="{{ url_for('adicionar_carrinho') }}" method="post">
+          <input type="hidden" name="nome" value="Site Responsivo Completo">
+          <input type="hidden" name="preco" value="1200.00">
+          <input type="hidden" name="tipo" value="servico">
+          <button type="submit" class="buy-button">Adicionar ao carrinho</button>
+        </form>
       </article>
       <article class="offer-card">
         <h3>Loja Virtual (e-commerce)</h3>
         <p>Desenvolvimento de loja online segura com sistema de pagamento integrado para impulsionar suas vendas.</p>
         <div class="offer-price">R$ 3.500,00</div>
+        <form action='/adicionar_carrinho' method="POST">
+          <input type="hidden" name="nome" value="Loja Virtual (e-commerce)">
+          <input type="hidden" name="preco" value="3500.00">
+          <input type="hidden" name="tipo" value="servico">
+          <button type="submit" class="buy-button">Adicionar ao carrinho</button>
+        </form>
       </article>
       <article class="offer-card">
         <h3>Manutenção e Atualização</h3>
         <p>Serviço contínuo para manter seu site atualizado, seguro e com as últimas tecnologias do mercado.</p>
-        <div class="offer-price">Planos a partir de R$ 400,00/mês</div>
+        <div class="offer-price">A partir de R$ 400,00/mês</div>
+        <form action='/adicionar_carrinho' method="POST">
+          <input type="hidden" name="nome" value="Manutenção e Atualização">
+          <input type="hidden" name="preco" value="400.00">
+          <input type="hidden" name="tipo" value="servico">
+          <button type="submit" class="buy-button">Adicionar ao carrinho</button>
+        </form>
       </article>
     </div>
   </section>
-  <section id="services">
-    <h2>Tipos de Serviços</h2>
-    <div class="services-list">
-      <div class="service-item">Desenvolvimento Frontend</div>
-      <div class="service-item">Desenvolvimento Backend</div>
-      <div class="service-item">Integração com APIs</div>
-      <div class="service-item">Consultoria em TI</div>
-      <div class="service-item">Otimização de Performance</div>
-      <div class="service-item">Treinamento Técnico</div>
-    </div>
-  </section>
+
   <section id="pdfs">
     <h2>Venda de PDFs - Conhecimentos de TI e Manutenção</h2>
     <div class="pdfs-grid">
@@ -51,31 +58,42 @@
         <h3 class="pdf-title">Guia Prático de Manutenção de Computadores</h3>
         <p class="pdf-description">Aprenda a diagnosticar e resolver problemas comuns de hardware e software em computadores.</p>
         <div class="pdf-price">R$ 49,90</div>
-        <button class="buy-button" onclick="buyPDF('Guia Prático de Manutenção de Computadores', 49.9)">Comprar</button>
+        <form action='/adicionar_carrinho' method="POST">
+          <input type="hidden" name="nome" value="Guia Prático de Manutenção de Computadores">
+          <input type="hidden" name="preco" value="49.90">
+          <input type="hidden" name="tipo" value="pdf">
+          <button type="submit" class="buy-button">Adicionar ao carrinho</button>
+        </form>
       </article>
       <article class="pdf-card">
         <h3 class="pdf-title">Fundamentos de Redes e Segurança</h3>
         <p class="pdf-description">Conteúdo essencial para entender redes de computadores, protocolos e segurança digital.</p>
         <div class="pdf-price">R$ 59,90</div>
-        <button class="buy-button" onclick="buyPDF('Fundamentos de Redes e Segurança', 59.9)">Comprar</button>
+        <form action="{{ url_for('adicionar_carrinho') }}" method="post">
+          <input type="hidden" name="nome" value="Fundamentos de Redes e Segurança">
+          <input type="hidden" name="preco" value="59.90">
+          <input type="hidden" name="tipo" value="pdf">
+          <button type="submit" class="buy-button">Adicionar ao carrinho</button>
+        </form>
       </article>
       <article class="pdf-card">
         <h3 class="pdf-title">Automação de Tarefas com Scripts</h3>
         <p class="pdf-description">Aprenda a criar scripts para automatizar processos comuns e aumentar a produtividade.</p>
         <div class="pdf-price">R$ 39,90</div>
-        <button class="buy-button" onclick="buyPDF('Automação de Tarefas com Scripts', 39.9)">Comprar</button>
+        <form action='/adicionar_carrinho' method="POST">
+          <input type="hidden" name="nome" value="Automação de Tarefas com Scripts">
+          <input type="hidden" name="preco" value="39.90">
+          <input type="hidden" name="tipo" value="pdf">
+          <button type="submit" class="buy-button">Adicionar ao carrinho</button>
+        </form>
       </article>
     </div>
   </section>
 </main>
+
 <footer>
   &copy; 2024 Programação Web e TI. Todos os direitos reservados.
 </footer>
-<script>
-  function buyPDF(title, price) {
-    alert(`Obrigado por adquirir o '${title}' por R$ ${price.toFixed(2)}! Em breve, enviaremos o link para download.`);
-  }
-</script>
+
 </body>
 </html>
-
