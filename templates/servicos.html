@@ -8,8 +8,19 @@
 </head>
 <body>
 <header>
-  <h1>Serviços de Programação Web & Recursos de TI</h1>
+    <h1>Serviços de Programação Web & Recursos de TI</h1>
   <p>Soluções completas para seu projeto e materiais para aprimorar seus conhecimentos em manutenção e TI.</p>
+
+  <nav class="main-nav">
+    <ul>
+      <li><a href='/meus_dados'>Meus Dados</a></li>
+      <li><a href='/carrinho'>Carrinho</a></li>
+      <li><a href='/logout'>Minhas Compras</a></li>
+      <li><form action='/logout' method="post">
+        <button type="submit" class="logout-button">Sair</button>
+      </form></li>
+    </ul>
+  </nav>
 </header>
 <main>
   <section id="offers">
