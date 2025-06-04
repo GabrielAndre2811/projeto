@@ -6,16 +6,18 @@ usuario_bp = Blueprint('usuario', __name__)
 def login():
     return render_template('login.html')
 
+@usuario_bp.route('/servicos')
+def servicos():
+    return render_template('servicos.html')
+
 @usuario_bp.route('/acesso', methods=['POST'])
 def acesso():
     username = request.form['login']
     password = request.form['password']
-    
     if username == 'gabriel@' and password == '123':
         return redirect('/servicos')
-    else:
-        print('Usuário não encontrado')
-        return "Usuário ou senha incorretos", 401
+    print('Usuário não encontrado')
+    return "Usuário ou senha incorretos", 401
 
 @usuario_bp.route('/cadastro')
 def cadastro():
@@ -41,11 +43,13 @@ def add_cadastro():
     }
 
     print(f'Cadastro realizado com sucesso: {email}, {login}, {nome}, {datanascimento}, {cpf}, {telefone}')
-    return redirect('/servicos')
+    return redirect(url_for('servicos'))
+
+
 
 @usuario_bp.route('/logout')
 def logout():
     session.pop('carrinho', None)
     session.pop('usuario', None)
-    return redirect('/')
+    return redirect(url_for('/'))
 

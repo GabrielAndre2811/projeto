@@ -30,7 +30,7 @@
         <h3>Site Responsivo Completo</h3>
         <p>Criação de site moderno, responsivo e otimizado para SEO, perfeito para apresentar sua empresa na web.</p>
         <div class="offer-price">R$ 1.200,00</div>
-        <form action="{{ url_for('adicionar_carrinho') }}" method="post">
+        <form action='/adicionar_carrinho' method="post">
           <input type="hidden" name="nome" value="Site Responsivo Completo">
           <input type="hidden" name="preco" value="1200.00">
           <input type="hidden" name="tipo" value="servico">
