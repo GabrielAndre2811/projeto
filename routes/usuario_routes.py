@@ -15,7 +15,7 @@ def acesso():
     username = request.form['login']
     password = request.form['password']
     if username == 'gabriel@' and password == '123':
-        return redirect('/servicos')
+        return redirect(url_for('usuario.servicos'))
     print('Usuário não encontrado')
     return "Usuário ou senha incorretos", 401
 
@@ -33,6 +33,7 @@ def add_cadastro():
     cpf = request.form['cpf']
     telefone = request.form['telefone']
 
+
     session['usuario'] = {
         'email': email,
         'login': login,
@@ -42,9 +43,9 @@ def add_cadastro():
         'telefone': telefone
     }
 
+
     print(f'Cadastro realizado com sucesso: {email}, {login}, {nome}, {datanascimento}, {cpf}, {telefone}')
     return redirect(url_for('servicos'))
-
 
 
 @usuario_bp.route('/logout')
