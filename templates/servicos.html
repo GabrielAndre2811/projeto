@@ -41,7 +41,7 @@
         <h3>Loja Virtual (e-commerce)</h3>
         <p>Desenvolvimento de loja online segura com sistema de pagamento integrado para impulsionar suas vendas.</p>
         <div class="offer-price">R$ 3.500,00</div>
-        <form action='/adicionar_carrinho' method="POST">
+        <form method="POST">
           <input type="hidden" name="nome" value="Loja Virtual (e-commerce)">
           <input type="hidden" name="preco" value="3500.00">
           <input type="hidden" name="tipo" value="servico">
@@ -52,7 +52,7 @@
         <h3>Manutenção e Atualização</h3>
         <p>Serviço contínuo para manter seu site atualizado, seguro e com as últimas tecnologias do mercado.</p>
         <div class="offer-price">A partir de R$ 400,00/mês</div>
-        <form action='/adicionar_carrinho' method="POST">
+        <form method="POST">
           <input type="hidden" name="nome" value="Manutenção e Atualização">
           <input type="hidden" name="preco" value="400.00">
           <input type="hidden" name="tipo" value="servico">
@@ -69,7 +69,7 @@
         <h3 class="pdf-title">Guia Prático de Manutenção de Computadores</h3>
         <p class="pdf-description">Aprenda a diagnosticar e resolver problemas comuns de hardware e software em computadores.</p>
         <div class="pdf-price">R$ 49,90</div>
-        <form action='/adicionar_carrinho' method="POST">
+        <form method="POST">
           <input type="hidden" name="nome" value="Guia Prático de Manutenção de Computadores">
           <input type="hidden" name="preco" value="49.90">
           <input type="hidden" name="tipo" value="pdf">
@@ -80,7 +80,7 @@
         <h3 class="pdf-title">Fundamentos de Redes e Segurança</h3>
         <p class="pdf-description">Conteúdo essencial para entender redes de computadores, protocolos e segurança digital.</p>
         <div class="pdf-price">R$ 59,90</div>
-        <form action="{{ url_for('adicionar_carrinho') }}" method="post">
+        <form method="post">
           <input type="hidden" name="nome" value="Fundamentos de Redes e Segurança">
           <input type="hidden" name="preco" value="59.90">
           <input type="hidden" name="tipo" value="pdf">
@@ -91,7 +91,7 @@
         <h3 class="pdf-title">Automação de Tarefas com Scripts</h3>
         <p class="pdf-description">Aprenda a criar scripts para automatizar processos comuns e aumentar a produtividade.</p>
         <div class="pdf-price">R$ 39,90</div>
-        <form action='/adicionar_carrinho' method="POST">
+        <form method="POST">
           <input type="hidden" name="nome" value="Automação de Tarefas com Scripts">
           <input type="hidden" name="preco" value="39.90">
           <input type="hidden" name="tipo" value="pdf">

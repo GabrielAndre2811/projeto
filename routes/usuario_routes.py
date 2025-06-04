@@ -21,6 +21,7 @@ def acesso():
 
 @usuario_bp.route('/cadastro')
 def cadastro():
+
     return render_template('cadastro.html')
 
 @usuario_bp.route('/add_cadastro', methods=['POST'])
