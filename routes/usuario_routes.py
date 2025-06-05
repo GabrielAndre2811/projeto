@@ -1,6 +1,13 @@
 from flask import Blueprint, render_template, request, redirect, session, url_for
+import logging
+
+logging.basicConfig(level=logging.INFO)
 
 usuario_bp = Blueprint('usuario', __name__)
+
+USERS = { 
+    "gabriel@": "123"
+}
 
 @usuario_bp.route('/login')
 def login():
@@ -14,10 +21,13 @@ def servicos():
 def acesso():
     username = request.form['login']
     password = request.form['password']
-    if username == 'gabriel@' and password == '123':
+    if username in USERS and USERS[username] == password:
         return redirect(url_for('usuario.servicos'))
-    print('Usuário não encontrado')
-    return "Usuário ou senha incorretos", 401
+    else:
+        logging.warning(f'Usuário ou senha incorretos: {username}')
+        session.pop('usuario', None)
+        print('Usuário não encontrado')
+        return "Usuário ou senha incorretos", 401
 
 @usuario_bp.route('/cadastro')
 def cadastro():
@@ -44,14 +54,17 @@ def add_cadastro():
         'telefone': telefone
     }
 
+    if email in USERS:
+        logging.warning(f'Usuário já cadastrado: {login}')
+        return "Usuário já cadastrado", 400
 
-    print(f'Cadastro realizado com sucesso: {email}, {login}, {nome}, {datanascimento}, {cpf}, {telefone}')
-    return redirect(url_for('servicos'))
+    USERS[email] = senha
+    logging.info(f'Cadastro realizado com sucesso: {email}, {login}, {nome}, {datanascimento}, {cpf}, {telefone}')
+    return redirect(url_for('usuario.servicos'))
 
 
 @usuario_bp.route('/logout')
 def logout():
-    session.pop('carrinho', None)
     session.pop('usuario', None)
     return redirect(url_for('/'))
 

@@ -15,8 +15,8 @@
     <ul>
       <li><a href='/meus_dados'>Meus Dados</a></li>
       <li><a href='/carrinho'>Carrinho</a></li>
-      <li><a href='/logout'>Minhas Compras</a></li>
-      <li><form action='/logout' method="post">
+      <li><a href="{{ url_for('usuario.logout') }}">Minhas Compras</a></li>
+      <li><form action="{{ url_for('usuario.logout') }}" method="post">
         <button type="submit" class="logout-button">Sair</button>
       </form></li>
     </ul>
