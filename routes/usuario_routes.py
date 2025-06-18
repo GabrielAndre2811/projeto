@@ -18,7 +18,7 @@ def login():
 @usuario_bp.route('/servicos')
 def servicos():
     getuser = session.get('usuario')
-    return render_template('servicos.html', nomeuser=getuser)
+    return render_template('servicos.html', nomeuser="Gabriel")
 
 @usuario_bp.route('/acesso', methods=['POST'])
 def acesso():
@@ -26,15 +26,14 @@ def acesso():
     password = request.form['password']
 
 
-    
-    
+
 
     if username in USERS and USERS[username] == password:
         session['usuario'] = username
         # Em um cenário real, você geraria um token de autenticação válido
         # Simulando um token de autenticação
-        token = secrets.token_hex(16)
-        session['token'] = token   
+       # token = secrets.token_hex(16)
+       # session['token'] = token
         return redirect(url_for('usuario.servicos'))
     else:
         logging.warning(f'Usuário ou senha incorretos: {username}')
@@ -84,7 +83,7 @@ def logout():
     return redirect(url_for('usuario.login'))
 
 
-@usuario_bp.before_request
+'''@usuario_bp.before_request
 def check_auth():
 
     token = session.get('token')
@@ -96,4 +95,4 @@ def check_auth():
     
     # Verifica se o token de autenticação está presente na sessão
     if not token:
-        return redirect(url_for('usuario.login'))
+        return redirect(url_for('usuario.login'))'''
