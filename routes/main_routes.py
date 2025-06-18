@@ -13,7 +13,3 @@ def sobre():
 @main_bp.route('/contato')
 def contato():
     return render_template('contato.html')
-
-@main_bp.route('/servicos')
-def servicos():
-    return render_template('servicos.html')

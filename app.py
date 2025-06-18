@@ -12,4 +12,4 @@ app.register_blueprint(usuario_bp, url_prefix='/usuario')
 app.register_blueprint(carrinho_bp, url_prefix='/carrinho')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=8080, host='127.0.0.1')

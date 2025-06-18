@@ -1,5 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, session, url_for
+import secrets
 import logging
+
 
 logging.basicConfig(level=logging.INFO)
 
@@ -15,13 +17,24 @@ def login():
 
 @usuario_bp.route('/servicos')
 def servicos():
-    return render_template('servicos.html')
+    getuser = session.get('usuario')
+    return render_template('servicos.html', nomeuser=getuser)
 
 @usuario_bp.route('/acesso', methods=['POST'])
 def acesso():
     username = request.form['login']
     password = request.form['password']
+
+
+    
+    
+
     if username in USERS and USERS[username] == password:
+        session['usuario'] = username
+        # Em um cenário real, você geraria um token de autenticação válido
+        # Simulando um token de autenticação
+        token = secrets.token_hex(16)
+        session['token'] = token   
         return redirect(url_for('usuario.servicos'))
     else:
         logging.warning(f'Usuário ou senha incorretos: {username}')
@@ -63,8 +76,24 @@ def add_cadastro():
     return redirect(url_for('usuario.servicos'))
 
 
-@usuario_bp.route('/logout')
+@usuario_bp.route('/logout', methods=['GET'])
 def logout():
     session.pop('usuario', None)
-    return redirect(url_for('/'))
+    session.pop('token', None)
+    session.clear()
+    return redirect(url_for('usuario.login'))
 
+
+@usuario_bp.before_request
+def check_auth():
+
+    token = session.get('token')
+    # Lista de rotas livres que não requerem autenticação
+    rotas_livres = ['sobre', 'contato', 'index', 'usuario.login', 'usuario.logout','acesso', 'cadastro', 'add_cadastro']
+    #verifica as rotas livre e nao busca token de autenticação
+    if request.endpoint in rotas_livres:
+        return
+    
+    # Verifica se o token de autenticação está presente na sessão
+    if not token:
+        return redirect(url_for('usuario.login'))
