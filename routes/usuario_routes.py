@@ -76,23 +76,28 @@ def add_cadastro():
 
 @usuario_bp.route('/logout', methods=['GET'])
 def logout():
-    session.pop('usuario', None)
-    session.pop('token', None)
-    session.clear()
+    session.clear()  # Isso já apaga tudo: usuario, token, etc
     return redirect(url_for('usuario.login'))
+
 
 
 @usuario_bp.before_request
 def check_auth():
+    rotas_livres = [
+        'usuario.login',
+        'usuario.logout',
+        'usuario.acesso',
+        'usuario.cadastro',
+        'usuario.add_cadastro'
+    ]
 
-    # Lista de rotas livres que não requerem autenticação
-    rotas_livres = ['sobre', 'contato', 'index', 'usuario.login', 'usuario.logout','usuario.acesso','acesso' ,'cadastro', 'add_cadastro']
-    #verifica as rotas livre e nao busca token de autenticação
+    print("Endpoint acessado:", request.endpoint)  # Ajuda no debug
+
     if request.endpoint in rotas_livres:
         return
 
     token = session.get('token')
-    # Verifica se o token de autenticação está presente na sessão
-    if token in session:
-        return redirect(url_for('usuario.servicos'))
-    else: redirect(url_for('usuario.login'))
+    if token:
+        return  # Está autenticado
+
+    return redirect(url_for('usuario.login'))
