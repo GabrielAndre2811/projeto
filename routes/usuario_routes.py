@@ -32,13 +32,12 @@ def acesso():
         session['usuario'] = username
         # Em um cenário real, você geraria um token de autenticação válido
         # Simulando um token de autenticação
+        token = "1234"
        # token = secrets.token_hex(16)
-       # session['token'] = token
+        session['token'] = token
         return redirect(url_for('usuario.servicos'))
     else:
-        logging.warning(f'Usuário ou senha incorretos: {username}')
         session.pop('usuario', None)
-        print('Usuário não encontrado')
         return "Usuário ou senha incorretos", 401
 
 @usuario_bp.route('/cadastro')
@@ -83,16 +82,17 @@ def logout():
     return redirect(url_for('usuario.login'))
 
 
-'''@usuario_bp.before_request
+@usuario_bp.before_request
 def check_auth():
 
-    token = session.get('token')
     # Lista de rotas livres que não requerem autenticação
-    rotas_livres = ['sobre', 'contato', 'index', 'usuario.login', 'usuario.logout','acesso', 'cadastro', 'add_cadastro']
+    rotas_livres = ['sobre', 'contato', 'index', 'usuario.login', 'usuario.logout','usuario.acesso','acesso' ,'cadastro', 'add_cadastro']
     #verifica as rotas livre e nao busca token de autenticação
     if request.endpoint in rotas_livres:
         return
-    
+
+    token = session.get('token')
     # Verifica se o token de autenticação está presente na sessão
-    if not token:
-        return redirect(url_for('usuario.login'))'''
+    if token in session:
+        return redirect(url_for('usuario.servicos'))
+    else: redirect(url_for('usuario.login'))
