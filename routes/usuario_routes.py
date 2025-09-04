@@ -32,8 +32,7 @@ def acesso():
         session['usuario'] = username
         # Em um cenário real, você geraria um token de autenticação válido
         # Simulando um token de autenticação
-        token = "1234"
-       # token = secrets.token_hex(16)
+        token = secrets.token_hex(16)
         session['token'] = token
         return redirect(url_for('usuario.servicos'))
     else:
@@ -74,7 +73,7 @@ def add_cadastro():
     return redirect(url_for('usuario.servicos'))
 
 
-@usuario_bp.route('/logout', methods=['GET'])
+@usuario_bp.route('/logout', methods=['GET', 'POST'])
 def logout():
     session.clear()  # Isso já apaga tudo: usuario, token, etc
     return redirect(url_for('usuario.login'))
@@ -83,21 +82,27 @@ def logout():
 
 @usuario_bp.before_request
 def check_auth():
-    rotas_livres = [
-        'usuario.login',
-        'usuario.logout',
-        'usuario.acesso',
-        'usuario.cadastro',
-        'usuario.add_cadastro'
-    ]
-
-    print("Endpoint acessado:", request.endpoint)  # Ajuda no debug
-
-    if request.endpoint in rotas_livres:
-        return
 
     token = session.get('token')
-    if token:
-        return  # Está autenticado
-
-    return redirect(url_for('usuario.login'))
+    # Lista de rotas livres que não requerem autenticação
+    
+    rotas_livres = [
+        'sobre',
+        'contato', 
+        'index',
+        'usuario.login', 
+        'usuario.logout',
+        'usuario.acesso', 
+        'usuario.cadastro', 
+        'usuario.add_cadastro',
+        'usuario.logout'
+    ]
+    #verifica as rotas livre e nao busca token de autenticação
+    if request.endpoint in rotas_livres:
+        return
+    
+    # Verifica se o token de autenticação está presente na sessão
+    if not token:
+        return redirect(url_for('usuario.login'))
+    # Aqui você pode adicionar lógica para validar o token, se necessário
+    # Por exemplo, verificar se o token é válido e não expirou      
