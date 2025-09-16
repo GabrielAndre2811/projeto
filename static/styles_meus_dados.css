@@ -1,0 +1,164 @@
+ @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap');
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #f9fafb;
+      color: #333;
+    }
+    header {
+      background: linear-gradient(135deg, #4b6cb7, #182848);
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    header h1 {
+      font-weight: 600;
+      font-size: 2.8rem;
+      margin: 0;
+    }
+    header p {
+      font-weight: 300;
+      margin-top: 0.5rem;
+      font-size: 1.2rem;
+    }
+    
+    .main-nav {
+      margin-top: 1em;
+      display: flex;
+      gap: 1em;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .main-nav ul {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      gap: 1em;
+      margin: 0;
+      align-items: center;
+    }
+
+    .main-nav a, .logout-button {
+      text-decoration: none;
+      background-color: #007BFF;
+      color: white;
+      padding: 0.5em 1em;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+      display: inline-block;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+    }
+
+    .logout-button {
+      background-color: #dc3545;
+    }
+
+    .main-nav a:hover, .logout-button:hover {
+      background-color: #0056b3;
+    }
+    .logout-button:hover {
+      background-color: #c82333;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1.5rem 1rem;
+      font-size: 0.9rem;
+      color: #777;
+      border-top: 1px solid #ddd;
+    }
+
+    /* Estilo para foto do usuário no header */
+    .user-info {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .user-info img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid white;
+    }
+    .user-info .user-name {
+      font-weight: 600;
+      font-size: 1.4rem;
+    }
+
+    @media (max-width: 480px) {
+      header h1 {
+        font-size: 2rem;
+      }
+      header p {
+        font-size: 1rem;
+      }
+      .user-info {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+      .user-info .user-name {
+        font-size: 1.1rem;
+      }
+    }
+
+    form {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 6px 12px -6px rgba(75,108,183,0.6);
+  max-width: 600px;
+  margin: 2rem auto;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.3rem;
+  font-weight: 600;
+  color: #182848;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="date"],
+input[type="tel"],
+input[type="password"],
+input[type="file"] {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  font-family: 'Poppins', sans-serif;
+  box-sizing: border-box;
+}
+
+button.save-button {
+  background: #4b6cb7;
+  color: white;
+  border: none;
+  padding: 0.7rem 1.5rem;
+  border-radius: 25px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  display: block;
+  margin: 1rem auto 0;
+}
+
+button.save-button:hover {
+  background: #182848;
+}
