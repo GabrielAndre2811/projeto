@@ -1,6 +1,8 @@
-from flask import Blueprint, render_template, request, redirect, session, url_for
+from flask import Blueprint, render_template, request, redirect, session, url_for, flash
 import secrets
 import logging
+import os
+from werkzeug.utils import secure_filename
 
 
 logging.basicConfig(level=logging.INFO)
@@ -15,23 +17,87 @@ USERS = {
 def login():
     return render_template('login.html')
 
+
+
+# Configurações (defina na inicialização da sua app Flask)
+UPLOAD_FOLDER = 'static/uploads'  # Pasta para salvar fotos
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
+
+# Função para checar extensões válidas
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+
+@usuario_bp.route('/atualizar_dados', methods=['POST'])
+def atualizar_dados():
+    # Verifica se usuário está logado
+    usuario = session.get('usuario')
+    if not usuario:
+        flash("Você precisa estar logado para atualizar seus dados.", "error")
+        return redirect(url_for('usuario.login'))
+    
+    # Coleta dados do formulário
+    nome = request.form.get('nome')
+    email = request.form.get('email')
+    datanascimento = request.form.get('datanascimento')
+    cpf = request.form.get('cpf')
+    telefone = request.form.get('telefone')
+    senha = request.form.get('senha')
+
+    # Verifica e salva a foto enviada (se houver)
+    foto = request.files.get('foto')
+    if foto and allowed_file(foto.filename):
+        filename = secure_filename(foto.filename)
+        
+        # Certifique-se que a pasta existe
+        os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+
+        filepath = os.path.join(UPLOAD_FOLDER, filename)
+        foto.save(filepath)
+
+        # Salva o caminho da foto para usar no template
+        usuario['foto_url'] = url_for('static', filename=f'uploads/{filename}')
+    
+    # Atualiza os dados do usuário na sessão (ou banco, se houver)
+    usuario.update({
+        'nome': nome,
+        'email': email,
+        'datanascimento': datanascimento,
+        'cpf': cpf,
+        'telefone': telefone
+    })
+
+    # Atualiza senha se foi preenchida
+    if senha:
+        USERS[email] = senha  # Atualize seu armazenamento conforme necessário
+    
+    # Atualiza sessão
+    session['usuario'] = usuario
+
+    flash("Dados atualizados com sucesso!", "success")
+    return redirect(url_for('usuario.meus_dados'))
+
+@usuario_bp.route('/meus_dados')
+def meus_dados():
+    usuario = session.get('usuario')
+    return render_template('meus_dados.html')
+
+
+
 @usuario_bp.route('/servicos')
 def servicos():
     getuser = session.get('usuario')
     return render_template('servicos.html', nomeuser="Gabriel")
+
 
 @usuario_bp.route('/acesso', methods=['POST'])
 def acesso():
     username = request.form['login']
     password = request.form['password']
 
-
-
-
     if username in USERS and USERS[username] == password:
         session['usuario'] = username
-        # Em um cenário real, você geraria um token de autenticação válido
-        # Simulando um token de autenticação
+        
         token = secrets.token_hex(16)
         session['token'] = token
         return redirect(url_for('usuario.servicos'))
@@ -75,9 +141,8 @@ def add_cadastro():
 
 @usuario_bp.route('/logout', methods=['GET', 'POST'])
 def logout():
-    session.clear()  # Isso já apaga tudo: usuario, token, etc
+    session.clear()  # Issojá apaga tudo: usuario, token, etc
     return redirect(url_for('usuario.login'))
-
 
 
 @usuario_bp.before_request
@@ -97,6 +162,7 @@ def check_auth():
         'usuario.add_cadastro',
         'usuario.logout'
     ]
+
     #verifica as rotas livre e nao busca token de autenticação
     if request.endpoint in rotas_livres:
         return
