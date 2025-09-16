@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{% block title %}Minha Loja{% endblock %}</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles_meus_dados.css') }}" />
+  {% block head %}{% endblock %}
+</head>
+<body>
+  <header>
+    <h1>Minha Loja</h1>
+    <p>Gerencie seus dados e pedidos aqui</p>
+
+    {% if usuario %}
+    <div class="user-info">
+      <img src="{{ usuario.foto_url or url_for('static', filename='default-avatar.png') }}" alt="Foto do Usuário" />
+      <div class="user-name">{{ usuario.nome }}</div>
+    </div>
+    {% endif %}
+
+    <nav class="main-nav">
+      <ul>
+        <li><a href="{{ url_for('usuario.servicos') }}">Home</a></li>
+        <li><a href="/pedidos">Pedidos</a></li>
+        <li><a href="/carrinho">Carrinho</a></li>
+        <li><a href="{{ url_for('usuario.logout') }}" class="logout-button">Sair</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer>
+    &copy; 2025 Minha Loja. Todos os direitos reservados.
+  </footer>
+</body>
+</html>
